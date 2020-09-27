@@ -172,6 +172,9 @@ export default {
      * Cancelling a specific order. 
     */
     const cancelOrder = () => {
+      if (!listOfOrders.value.length)
+        return;
+
       const toBeCancelledOrder = listOfOrders.value[selectedOrder.value];
       const cancelId = toBeCancelledOrder[0];
 
@@ -188,7 +191,7 @@ export default {
 
       const onError = (error) => { console.error('cancelOrder onError error => ', error); };
 
-      if (!toBeCancelledOrder[3] || !listOfOrders.value.length)
+      if (!toBeCancelledOrder[3])
         return;
 
       orderController.cancelOrder(cancelId, onSuccess, onError);
