@@ -1,20 +1,20 @@
 import axios from 'axios';
 
-const http = axios.create({
-    baseURL: process.env.VUE_APP_SERVER_URL
-});
+// const http = axios.create({
+//     baseURL: process.env.VUE_APP_SERVER_URL
+// });
 
 export default {
     
     createNewOrder(onSuccess, onError, onFinally = () => {}) {
-        http.put('/orders')
+        axios.put('/orders')
         .then(onSuccess)
         .catch(onError)
         .finally(onFinally);
     },
     
     processOrderPayment(id, onSuccess, onError, onFinally = () => {}) {
-        http.post('/payment/process', {
+        axios.post('/payment/process', {
             id: id
         })
         .then(onSuccess)
@@ -23,28 +23,28 @@ export default {
     },
 
     getAllOrders(onSuccess, onError, onFinally = () => {}) {
-        http.get('/orders')
+        axios.get('/orders')
         .then(onSuccess)
         .catch(onError)
         .finally(onFinally);
     },
     
     deleteAllOrders(onSuccess, onError, onFinally = () => {}) {
-        http.delete('/orders')
+        axios.delete('/orders')
         .then(onSuccess)
         .catch(onError)
         .finally(onFinally);
     },
     
     deleteOrder(id, onSuccess, onError, onFinally = () => {}) {
-        http.delete('/orders/${id}')
+        axios.delete('/orders/${id}')
         .then(onSuccess)
         .catch(onError)
         .finally(onFinally);
     },
     
     cancelOrder(id, onSuccess, onError, onFinally = () => {}) {
-        http.post('/orders/cancel', {
+        axios.post('/orders/cancel', {
             id: id
         })
         .then(onSuccess)
@@ -53,7 +53,7 @@ export default {
     },
     
     shipOrder(id, onSuccess, onError, onFinally = () => {}) {
-        http.post('/orders/ship', {
+        axios.post('/orders/ship', {
             id: id
         })
         .then(onSuccess)
