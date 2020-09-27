@@ -188,7 +188,7 @@ export default {
 
       const onError = (error) => { console.error('cancelOrder onError error => ', error); };
 
-      if (!toBeCancelledOrder[3])
+      if (!toBeCancelledOrder[3] || !listOfOrders.value.length)
         return;
 
       orderController.cancelOrder(cancelId, onSuccess, onError);
