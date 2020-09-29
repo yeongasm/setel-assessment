@@ -10,7 +10,7 @@ export class PaymentController {
      * Add request body validation, throw http exception if it is not correct.
     */
 
-    @Post('process')
+    @Post()
     async processPayment(@Req() req)
     {
         return await this.paymentService.processPayment(req.body.id);

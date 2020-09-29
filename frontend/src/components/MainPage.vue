@@ -77,8 +77,8 @@ export default {
           const row = ordersEntryFromDB[i];
           listOfOrders.value.push([
             row.order_id,
-            moment.utc(row.order_date).format('DD/MM/YYYY'), 
-            moment.utc(row.order_time).format('hh:mm:ss'), 
+            moment.utc(row.order_date).local().format('DD/MM/YYYY'), 
+            moment.utc(row.order_time).local().format('HH:mm:ss'), 
             stateToStringMap[row.order_state]
           ]);
         }
@@ -145,6 +145,9 @@ export default {
      * Creating a new order.
     */
     const createNewOrder = () => {
+      if (!paymentTriggerTimeout.value)
+        paymentTriggerTimeout.value = 10;
+
       const onSuccess = (result) => {
         const orderId = result.data.order_id;
         listOfOrders.value = [];
