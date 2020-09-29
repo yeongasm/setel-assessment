@@ -6,7 +6,7 @@ export class PaymentService {
 
     async processPayment(id: string) {
         return new Promise(async (resolve, reject) => {
- 
+
             const condition = `order_id='${id}'`;
             let result = await db.selectRowFrom('orders', condition);
             

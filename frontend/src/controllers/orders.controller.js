@@ -10,7 +10,7 @@ export default {
     },
     
     processOrderPayment(id, onSuccess, onError, onFinally = () => {}) {
-        axios.post('/payment/process', {
+        axios.post('/payment', {
             id: id
         })
         .then(onSuccess)
