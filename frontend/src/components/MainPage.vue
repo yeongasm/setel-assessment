@@ -81,6 +81,17 @@ export default {
             moment.utc(row.order_time).local().format('HH:mm:ss'), 
             stateToStringMap[row.order_state]
           ]);
+
+          switch (row.order_state) {
+            case 1:
+              setTimeout(() => { processOrderPayment(row.order_id); }, paymentTriggerTimeout.value * 1000);
+              break;
+            case 2:
+              setTimeout(() => { deliverOrderOut(row.order_id); }, paymentTriggerTimeout.value * 1000);
+              break;
+            default:
+              break;
+          }
         }
       };
 
@@ -152,7 +163,7 @@ export default {
         const orderId = result.data.order_id;
         listOfOrders.value = [];
         getAllOrders();
-        setTimeout(() => { processOrderPayment(orderId); }, paymentTriggerTimeout.value * 1000);
+        //setTimeout(() => { processOrderPayment(orderId); }, paymentTriggerTimeout.value * 1000);
       };
 
       const onError = (error) => { console.log('createNewOrder onError error => ', error); };
@@ -194,7 +205,7 @@ export default {
 
       const onError = (error) => { console.error('cancelOrder onError error => ', error); };
 
-      if (!toBeCancelledOrder[3])
+      if (toBeCancelledOrder[3] != 'Created')
         return;
 
       orderController.cancelOrder(cancelId, onSuccess, onError);
